@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
+import { CSVReaderComponent } from './components/csv-reader/csv-reader.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    CSVReaderComponent
   ],
   imports: [
     BrowserModule,
