@@ -1,4 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import {NgxCsvParser, NgxCSVParserError} from 'ngx-csv-parser'
+
 @Component({
     selector:    'app-csv-reader',
     templateUrl: './csv-reader.component.html',
@@ -7,12 +9,32 @@ import { Component, OnInit } from "@angular/core";
   })
 
 export class CSVReaderComponent implements OnInit {
-   
-    constructor() { }
+  csvRecords: any;
+  header: boolean = false;
+
+  constructor(private ngxCsvParser: NgxCsvParser) {
+  }
+  ngOnInit(): void {
+  }
+
   
-    ngOnInit() {
-      console.log('reader is working')
-    }
+  @ViewChild('fileImportInput') fileImportInput: any;
+
+  fileChangeListener($event: any): void {
+
+    const files = $event.srcElement.files;
+    this.header = (this.header as unknown as string) === 'true' || this.header === true;
+
+    this.ngxCsvParser.parse(files[0], { header: this.header, delimiter: ',' })
+      .pipe().subscribe({
+        next: (result): void => {
+          console.log('Result', result);
+          this.csvRecords = result;
+        },
+        error: (error: NgxCSVParserError): void => {
+          console.log('Error', error);
+        }
+      });
+  }
   
-    
   }

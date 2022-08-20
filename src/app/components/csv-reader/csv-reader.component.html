@@ -7,6 +7,8 @@
         <mat-icon>add</mat-icon>
       </button>
       Subir archivos
+      <input type="file" #fileImportInput name="File Upload" id="csvFileUpload" (change)="fileChangeListener($event)"
+      accept=".csv" />
     </mat-card-title>
 
   </mat-card-header>
