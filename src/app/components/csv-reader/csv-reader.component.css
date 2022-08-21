@@ -20,3 +20,17 @@
   .secondary-button:hover {
     background-color: #8d8d8d
   }
+
+
+   input[type="file"] {
+     display: none;
+  }
+ 
+.file {
+  cursor: pointer;
+}
+
+#material-symbols-outlined{
+  max-width: 80px;
+
+}

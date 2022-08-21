@@ -18,7 +18,7 @@ import { CSVReaderComponent } from './components/csv-reader/csv-reader.component
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

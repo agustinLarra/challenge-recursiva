@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import {NgxCsvParser, NgxCSVParserError} from 'ngx-csv-parser'
-
+import * as XLSX from 'xlsx'
 @Component({
     selector:    'app-csv-reader',
     templateUrl: './csv-reader.component.html',
@@ -9,32 +8,26 @@ import {NgxCsvParser, NgxCSVParserError} from 'ngx-csv-parser'
   })
 
 export class CSVReaderComponent implements OnInit {
-  csvRecords: any;
-  header: boolean = false;
-
-  constructor(private ngxCsvParser: NgxCsvParser) {
+  ExcelData : any
+  constructor() {
   }
   ngOnInit(): void {
   }
 
   
-  @ViewChild('fileImportInput') fileImportInput: any;
+  readDocument(event: any): void {
+    console.log('event',event)
+    console.log('event.target.file[0]',event.target.files[0])
 
-  fileChangeListener($event: any): void {
-
-    const files = $event.srcElement.files;
-    this.header = (this.header as unknown as string) === 'true' || this.header === true;
-
-    this.ngxCsvParser.parse(files[0], { header: this.header, delimiter: ',' })
-      .pipe().subscribe({
-        next: (result): void => {
-          console.log('Result', result);
-          this.csvRecords = result;
-        },
-        error: (error: NgxCSVParserError): void => {
-          console.log('Error', error);
-        }
-      });
+    var file = event.target.files[0]
+    var fileReader = new FileReader()
+    fileReader.readAsBinaryString(file)
+    fileReader.onloadend = (e) => {
+      var workBook = XLSX.read(fileReader.result,{type:'binary'});
+      var sheetName = workBook.SheetNames
+      this.ExcelData = XLSX.utils.sheet_to_json(workBook.Sheets[sheetName[0]])
+      console.log('this.ExcelData',this.ExcelData)
+    }
   }
   
   }

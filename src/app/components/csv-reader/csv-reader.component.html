@@ -2,13 +2,19 @@
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
 
-    <mat-card-title>
-      <button mat-mini-fab color="primary" class="primary-button">
-        <mat-icon>add</mat-icon>
+    <mat-card-title class="file">
+      <input type="file" id="file" (change)="readDocument($event)" />
+      <label for="file" class="file">
+      <!--   <button mat-mini-fab color="primary" class="primary-button" type="file" id="file" (change)="readDocument($event)">
+        <mat-icon for="file">add</mat-icon>
+      </button> -->
+      <span class="material-symbols-outlined"><mat-icon for="file">add</mat-icon></span>
+        Subir archivo
+      </label>
+     <!--  <button for="file" mat-mini-fab color="primary" class="primary-button">
+        <mat-icon for="file">add</mat-icon>
       </button>
-      Subir archivos
-      <input type="file" #fileImportInput name="File Upload" id="csvFileUpload" (change)="fileChangeListener($event)"
-      accept=".csv" />
+      Subir archivos -->
     </mat-card-title>
 
   </mat-card-header>
