@@ -2,25 +2,21 @@
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
 
-    <mat-card-title class="file">
-      <input type="file" id="file" (change)="readDocument($event)" />
-      <label for="file" class="file">
-      <!--   <button mat-mini-fab color="primary" class="primary-button" type="file" id="file" (change)="readDocument($event)">
-        <mat-icon for="file">add</mat-icon>
-      </button> -->
-      <span class="material-symbols-outlined"><mat-icon for="file">add</mat-icon></span>
-        Subir archivo
-      </label>
-     <!--  <button for="file" mat-mini-fab color="primary" class="primary-button">
+    <mat-card-title>
+      <input hidden (change)="readDocument($event)" #fileInput type="file" id="file">
+      <button mat-mini-fab color="primary" class="primary-button" (click)="fileInput.click()">
         <mat-icon for="file">add</mat-icon>
       </button>
-      Subir archivos -->
+      <label for="file" class="file">
+        Subir archivo
+      </label>
     </mat-card-title>
+    <mat-card-subtitle>{{fileName}}</mat-card-subtitle>
 
   </mat-card-header>
   <img mat-card-image src="../../../assets/logo-liga-argentina.png">
 
   <mat-card-actions>
-    <button mat-raised-button class="secondary-button">Enviar</button>
+    <button mat-raised-button class="secondary-button" (click)="send()">Enviar</button>
   </mat-card-actions>
 </mat-card>

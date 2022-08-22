@@ -1,1 +1,9 @@
-<app-csv-reader></app-csv-reader>
+<mat-sidenav-container>
+    <mat-sidenav #sidenav mode="side" opened="false" [fixedInViewport]="true" position="end">
+    </mat-sidenav>
+    <mat-sidenav-content>
+
+        <app-csv-reader></app-csv-reader>
+        <app-filters-conteiner></app-filters-conteiner>
+    </mat-sidenav-content>
+</mat-sidenav-container>

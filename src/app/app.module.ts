@@ -7,12 +7,16 @@ import { HomeComponent } from './pages/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { CSVReaderComponent } from './components/csv-reader/csv-reader.component';
+import { FiltersConteinerComponent } from './components/filters/filters-conteiner.component';
+import { SideNavService } from './services/side-nav.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    CSVReaderComponent
+    CSVReaderComponent,
+    FiltersConteinerComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -20,7 +24,7 @@ import { CSVReaderComponent } from './components/csv-reader/csv-reader.component
     BrowserAnimationsModule,
     MaterialModule,
   ],
-  providers: [],
+  providers: [SideNavService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

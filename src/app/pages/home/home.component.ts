@@ -1,4 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { MatSidenav } from "@angular/material/sidenav";
+import { SideNavService } from "src/app/services/side-nav.service";
 @Component({
     selector:    'app-home',
     templateUrl: './home.component.html',
@@ -6,12 +8,15 @@ import { Component, OnInit } from "@angular/core";
   })
 
 export class HomeComponent implements OnInit {
-   
-    constructor() { }
-  
-    ngOnInit() {
-      console.log('home is working')
-    }
-  
-    
+
+  @ViewChild('sidenav', {static: true}) sidenav: MatSidenav;
+
+	constructor(private sidenavService: SideNavService) {	}
+
+	ngOnInit(): void {
+    console.log(this.sidenav)
+		this.sidenavService.setSidenav(this.sidenav);
+    console.log(this.sidenav)
   }
+	
+}

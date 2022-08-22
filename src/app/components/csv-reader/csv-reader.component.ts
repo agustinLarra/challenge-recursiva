@@ -1,5 +1,7 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, EventEmitter, OnInit, Output, ViewChild } from "@angular/core";
+import { SideNavService } from "src/app/services/side-nav.service";
 import * as XLSX from 'xlsx'
+
 @Component({
     selector:    'app-csv-reader',
     templateUrl: './csv-reader.component.html',
@@ -8,11 +10,20 @@ import * as XLSX from 'xlsx'
   })
 
 export class CSVReaderComponent implements OnInit {
-  ExcelData : any
-  constructor() {
-  }
-  ngOnInit(): void {
-  }
+
+  showFiller = false;
+
+  ExcelData : any = null
+  fileName : string = ""
+  fileAdded = true
+
+  @Output()
+  eventoHijo = new EventEmitter<string>();
+
+  
+  constructor( private sideNavService : SideNavService) {}
+
+  ngOnInit(): void {  }
 
   
   readDocument(event: any): void {
@@ -20,6 +31,7 @@ export class CSVReaderComponent implements OnInit {
     console.log('event.target.file[0]',event.target.files[0])
 
     var file = event.target.files[0]
+    this.fileName = file.name
     var fileReader = new FileReader()
     fileReader.readAsBinaryString(file)
     fileReader.onloadend = (e) => {
@@ -30,4 +42,11 @@ export class CSVReaderComponent implements OnInit {
     }
   }
   
+  send(){
+    if(this.ExcelData != null){
+      this.sideNavService.toggle();
+    }else{
+      alert("Primero ingresa un archivo")    
+    }
+  }
   }
