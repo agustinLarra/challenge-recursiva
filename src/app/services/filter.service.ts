@@ -44,4 +44,46 @@ export class FilterService {
         return fansByClubArray
     }
 
+    public filterByMaritalStatusAndStudysSortedByAge(fansArray: Fan[], maritalStatus: string, studyStatus: string) {
+        var filtereds = this.filterByMaritalStatus(fansArray, maritalStatus)
+        filtereds = this.filterByStudys(filtereds, studyStatus)
+
+        filtereds.sort((a, b) => a.age - b.age);
+        return filtereds
+    }
+
+    public filterByMaritalStatus(fansArray: Fan[], maritalStatus: string) {
+        var filterByMaritalStatus: Fan[] = []
+        fansArray.forEach(fan => {
+            if (fan.maritalStatus == maritalStatus) {
+                filterByMaritalStatus.push(fan)
+            }
+        });
+        return filterByMaritalStatus
+    }
+
+    public filterByStudys(fansArray: Fan[], studyStatus: string) {
+        var filterByStudyStatus: Fan[] = []
+        fansArray.forEach(fan => {
+            if (fan.studys == studyStatus) {
+                filterByStudyStatus.push(fan)
+            }
+        });
+        return filterByStudyStatus
+    }
+
+    public getAgeAverageByClub (fansArray: Fan[], club: string){
+        var fansByClub = this.getFansByClub(fansArray, club)
+        var sumTotalAges = 0
+        const numberOfFans = fansByClub.length
+        fansByClub.forEach(element => {
+            sumTotalAges += element.age
+        });
+        console.log('cantidad de fans',numberOfFans)
+        console.log('edades totales',sumTotalAges)
+        var average = sumTotalAges / numberOfFans
+        console.log('average',average)
+        return average
+    }
+
 }

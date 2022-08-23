@@ -17,14 +17,15 @@
             <h4>Filtra los hinchas por:</h4>
 
             <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-                <mat-button-toggle (click)="filterByName()" value="bold">Nombre</mat-button-toggle>
-                <mat-button-toggle value="italic">Edad</mat-button-toggle>
-                <mat-button-toggle value="underline">Estudios y estado civil</mat-button-toggle>
+                <mat-button-toggle (click)="filterByNameButton()" value="bold">Nombre</mat-button-toggle>
+                <mat-button-toggle (click)="filterByAgeButton()" value="bold">Edad</mat-button-toggle>
+                <mat-button-toggle (click)="filterByMaritalStatusAndStudysButton()" value="bold">Estudios y estado civil</mat-button-toggle>
             </mat-button-toggle-group>
 
-            <div *ngIf="filterNameComponent == true">
-                <app-filter-name [selectedClub]="selectedClub"></app-filter-name>
-            </div>
+            <app-filter-name *ngIf="filterNameComponent == true" [selectedClub]="selectedClub"></app-filter-name>
+            <app-filter-marital-study  *ngIf="filterByMaritalStatusAndStudys == true"></app-filter-marital-study>
+            <app-filter-age  *ngIf="filterAgeComponent == true" [selectedClub]="selectedClub"></app-filter-age>
+ 
         </mat-sidenav>
     </mat-sidenav-content>
 </mat-sidenav-container>

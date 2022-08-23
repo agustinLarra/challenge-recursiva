@@ -16,6 +16,8 @@ import { FilterNameComponent } from './components/filters/names/filter-name.comp
 //services
 import { SideNavService } from './services/side-nav.service';
 import { FilterService } from './services/filter.service';
+import { FilterMaritialStudyComponent } from './components/filters/marital-study/filter-marital-study.component';
+import { FilterAgeComponent } from './components/filters/age/filter-age.component';
 
 
 
@@ -26,6 +28,8 @@ import { FilterService } from './services/filter.service';
     CSVReaderComponent,
     FiltersConteinerComponent,
     FilterNameComponent,
+    FilterMaritialStudyComponent,
+    FilterAgeComponent
   ],
   imports: [
     NgxsModule.forRoot([FansState], {

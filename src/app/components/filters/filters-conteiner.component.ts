@@ -25,7 +25,7 @@ export class FiltersConteinerComponent implements OnInit {
 
  filterNameComponent = false
  filterAgeComponent = false
- filterStudyAndMaritalComponent = false
+ filterByMaritalStatusAndStudys = false
 
   
   constructor(
@@ -51,10 +51,23 @@ export class FiltersConteinerComponent implements OnInit {
     });
   }
 
-  filterByName(){
+  filterByNameButton(){
     this.filterNameComponent = true
+    this.filterAgeComponent = false
+    this.filterByMaritalStatusAndStudys = false
   } 
 
+  filterByMaritalStatusAndStudysButton(){
+    this.filterNameComponent = false
+    this.filterAgeComponent = false
+    this.filterByMaritalStatusAndStudys = true
+  }
+
+  filterByAgeButton(){
+    this.filterNameComponent = false
+    this.filterAgeComponent = true
+    this.filterByMaritalStatusAndStudys = false
+  }
 }
 
 
