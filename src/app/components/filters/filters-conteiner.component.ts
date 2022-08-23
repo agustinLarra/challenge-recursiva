@@ -2,13 +2,11 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormControl, Validators } from "@angular/forms";
 import { MatSidenav } from "@angular/material/sidenav";
 import { Store } from "@ngxs/store";
-import { GetPopularNamesByClub } from "src/app/ngxs/action/fans.action";
+import { Fan } from "src/app/ngxs/model/fans.model";
 import { FansState } from "src/app/ngxs/state/fans.state";
+import { FilterService } from "src/app/services/filter.service";
 import { SideNavService } from "src/app/services/side-nav.service";
-interface Animal {
-  name: string;
-  sound: string;
-}
+
 @Component({
   selector: 'app-filters-conteiner',
   templateUrl: './filters-conteiner.component.html',
@@ -18,25 +16,35 @@ interface Animal {
 export class FiltersConteinerComponent implements OnInit {
 
   @ViewChild('rightSidenav', { static: true }) sidenav: MatSidenav;
+  
+  fansArray :Fan [] = []
   numberOfFans = 0;
-  selectedValue: string;
   
-  animalControl = new FormControl(null, Validators.required);
-  selectFormControl = new FormControl('', Validators.required);
-
-  clubs = [{value: 'Boca'},{value: 'River'},{value: 'Racing'},{value: 'San Lorenzo'},{value: 'Independiente'},{value: 'Velez'},{value: 'Estudiantes'},{value: 'Gimanasia LP'},{value: 'Huracan'},{value: 'Rosario Central'},{value: 'Newells'},]
-
-
+  clubs = [{value: 'Boca'},{value: 'River'},{value: 'Racing'},{value: 'San Lorenzo'},{value: 'Independiente'},{value: 'Velez'},{value: 'Estudiantes'},{value: 'Gimnasia LP'},{value: 'Huracán'},{value: 'Rosario Central'},{value: 'Newells'},]
   selectedClub = this.clubs[0].value
+
+ filterNameComponent = false
+ filterAgeComponent = false
+ filterStudyAndMaritalComponent = false
+
   
-  constructor(private sidenavService: SideNavService,
-    private store: Store) { }
+  constructor(
+    private sidenavService: SideNavService,
+    private store: Store,
+    private filterService : FilterService
+    ) { }
 
   ngOnInit(): void {
     this.sidenavService.setSidenav(this.sidenav);
+    this.getAllFans()
     this.countFans()
   }
 
+  getAllFans(){
+    this.store.select(FansState.getAllFans).subscribe(data => {
+      this.fansArray = data
+    });
+  }
   countFans() {
     this.store.select(FansState.countFans).subscribe(data => {
       this.numberOfFans = data
@@ -44,9 +52,7 @@ export class FiltersConteinerComponent implements OnInit {
   }
 
   filterByName(){
-    this.store.dispatch(new GetPopularNamesByClub(this.selectedClub)).subscribe(data => {
-    
-    });
+    this.filterNameComponent = true
   } 
 
 }

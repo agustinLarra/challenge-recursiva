@@ -1,17 +1,23 @@
+//commons
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { HomeComponent } from './pages/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
-import { CSVReaderComponent } from './components/csv-reader/csv-reader.component';
-import { FiltersConteinerComponent } from './components/filters/filters-conteiner.component';
-import { SideNavService } from './services/side-nav.service';
 import { environment } from 'src/environments/environment';
 import { NgxsModule } from '@ngxs/store';
 import { FansState } from './ngxs/state/fans.state';
+//components
+import { AppComponent } from './app.component';
+import { HomeComponent } from './pages/home/home.component';
+import { CSVReaderComponent } from './components/csv-reader/csv-reader.component';
+import { FiltersConteinerComponent } from './components/filters/filters-conteiner.component';
+import { FilterNameComponent } from './components/filters/names/filter-name.component';
+//services
+import { SideNavService } from './services/side-nav.service';
+import { FilterService } from './services/filter.service';
+
+
 
 @NgModule({
   declarations: [
@@ -19,7 +25,7 @@ import { FansState } from './ngxs/state/fans.state';
     HomeComponent,
     CSVReaderComponent,
     FiltersConteinerComponent,
-    
+    FilterNameComponent,
   ],
   imports: [
     NgxsModule.forRoot([FansState], {
@@ -30,7 +36,7 @@ import { FansState } from './ngxs/state/fans.state';
     BrowserAnimationsModule,
     MaterialModule,
   ],
-  providers: [SideNavService],
+  providers: [SideNavService,FilterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

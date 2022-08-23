@@ -33,7 +33,6 @@ export class CSVReaderComponent implements OnInit {
      }else{
        alert("Primero ingresa un archivo")    
      } */
-    console.log('envio', this.records)
     this.store.dispatch(new SetFans(this.records)).subscribe(() => {
       this.sideNavService.toggle();
     })
@@ -77,7 +76,7 @@ export class CSVReaderComponent implements OnInit {
         let fan: Fan = {
           name: this.removeAccents(dataArray[0]),
           age: parseInt(dataArray[1]),
-          club: dataArray[2],
+          club: this.removeAccents(dataArray[2]),
           maritalStatus: dataArray[3],
           studys: dataArray[4]
         }

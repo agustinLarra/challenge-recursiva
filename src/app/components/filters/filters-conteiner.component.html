@@ -2,15 +2,15 @@
     <mat-sidenav #sidenav mode="side" opened="false" [fixedInViewport]="true" position="end">
     </mat-sidenav>
     <mat-sidenav-content style="height: 100%;">
-        <mat-sidenav #rightSidenav mode="side" class="rightSidenav" [fixedInViewport]="true" >
+        <mat-sidenav #rightSidenav mode="side" class="rightSidenav" [fixedInViewport]="true">
             <h1>Cantidad de socios : {{numberOfFans}}</h1>
-            
-            
+
+
             <h4>Clubes</h4>
             <mat-form-field appearance="fill">
-              <mat-select [(value)]="selectedClub">
-                <mat-option [value]="option.value" *ngFor="let option of clubs">{{ option.value }}</mat-option>
-              </mat-select>
+                <mat-select [(value)]="selectedClub">
+                    <mat-option [value]="option.value" *ngFor="let option of clubs">{{ option.value }}</mat-option>
+                </mat-select>
             </mat-form-field>
 
 
@@ -20,7 +20,11 @@
                 <mat-button-toggle (click)="filterByName()" value="bold">Nombre</mat-button-toggle>
                 <mat-button-toggle value="italic">Edad</mat-button-toggle>
                 <mat-button-toggle value="underline">Estudios y estado civil</mat-button-toggle>
-              </mat-button-toggle-group>
+            </mat-button-toggle-group>
+
+            <div *ngIf="filterNameComponent == true">
+                <app-filter-name [selectedClub]="selectedClub"></app-filter-name>
+            </div>
         </mat-sidenav>
     </mat-sidenav-content>
 </mat-sidenav-container>
