@@ -7,13 +7,8 @@ import { SideNavService } from './services/side-nav.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent  implements OnInit {
+export class AppComponent {
 	
-//	@ViewChild('rightSidenav') public sidenav: MatSidenav;
+	constructor() {	}
 
-	constructor(private sidenavService: SideNavService) {	}
-
-	ngOnInit(): void {
-		//this.sidenavService.setSidenav(this.sidenav);
-	}
 }

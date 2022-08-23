@@ -9,6 +9,9 @@ import { MaterialModule } from './material.module';
 import { CSVReaderComponent } from './components/csv-reader/csv-reader.component';
 import { FiltersConteinerComponent } from './components/filters/filters-conteiner.component';
 import { SideNavService } from './services/side-nav.service';
+import { environment } from 'src/environments/environment';
+import { NgxsModule } from '@ngxs/store';
+import { FansState } from './ngxs/state/fans.state';
 
 @NgModule({
   declarations: [
@@ -19,6 +22,9 @@ import { SideNavService } from './services/side-nav.service';
     
   ],
   imports: [
+    NgxsModule.forRoot([FansState], {
+      developmentMode: !environment.production
+    }),
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

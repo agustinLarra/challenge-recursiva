@@ -7,10 +7,7 @@ export class SideNavService {
 	private sidenav: MatSidenav;
 
 	public setSidenav(sidenav: MatSidenav) {
-        console.log('que llega',sidenav)
 		this.sidenav = sidenav;
-        console.log('despues',this.sidenav)
-
     }
 
 	public open() {
@@ -22,7 +19,6 @@ export class SideNavService {
 	}
 
 	public toggle(): void {
-        console.log('que pasa',this.sidenav)
 		this.sidenav.toggle();
 	}
 }

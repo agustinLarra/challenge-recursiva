@@ -9,14 +9,8 @@ import { SideNavService } from "src/app/services/side-nav.service";
 
 export class HomeComponent implements OnInit {
 
-  @ViewChild('sidenav', {static: true}) sidenav: MatSidenav;
+	constructor() {	}
 
-	constructor(private sidenavService: SideNavService) {	}
+	ngOnInit(): void {}
 
-	ngOnInit(): void {
-    console.log(this.sidenav)
-		this.sidenavService.setSidenav(this.sidenav);
-    console.log(this.sidenav)
-  }
-	
 }

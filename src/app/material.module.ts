@@ -5,6 +5,8 @@ import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatSelectModule} from '@angular/material/select';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [],
@@ -16,7 +18,9 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     MatCardModule,
     MatIconModule,
     MatInputModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatSelectModule,
+    MatButtonToggleModule,
   ]
 })
 export class MaterialModule { }
