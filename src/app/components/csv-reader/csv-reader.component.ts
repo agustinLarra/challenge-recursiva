@@ -43,14 +43,16 @@ export class CSVReaderComponent implements OnInit {
 
   uploadListener($event: any): void {
     this.loading = true
-    let text = [];
     let files = $event.srcElement.files;
+    this.fileName = files[0].name
     let input = $event.target;
     let reader = new FileReader();
     reader.readAsText(input.files[0]);
     reader.onload = () => {
       let csvData = reader.result;
+      console.log('csvData',csvData)
       let csvRecordsArray = (<string>csvData).split(/\r\n|\n/);
+      console.log('csvData',csvData)
       let headersRow = this.getHeaderArray(csvRecordsArray);
       this.records = this.getDataRecordsArrayFromCSVFile(csvRecordsArray, headersRow.length);
     };
@@ -73,11 +75,13 @@ export class CSVReaderComponent implements OnInit {
           curruntRecord[0] = curruntRecord[0].slice(fin + 1, curruntRecord[0].length)
           dataArray.push(extraida)
         }
+   
+
         //Convierto el dato en una clase
         let fan: Fan = {
-          name: this.removeAccents(dataArray[0]),
+          name: dataArray[0],
           age: parseInt(dataArray[1]),
-          club: this.removeAccents(dataArray[2]),
+          club: dataArray[2],
           maritalStatus: dataArray[3],
           studys: dataArray[4]
         }
@@ -87,8 +91,28 @@ export class CSVReaderComponent implements OnInit {
     }
     return fansArray;
   }
+  /*   removeAccents(str: string) {
+      return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    } */
+
   removeAccents(str: string) {
-    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+    var from = "ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç",
+      to = "AAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc",
+      mapping: any = {};
+
+    for (var i = 0, j = from.length; i < j; i++)
+      mapping[from.charAt(i)] = to.charAt(i);
+
+    var ret = [];
+    for (var i = 0, j = str.length; i < j; i++) {
+      var c = str.charAt(i);
+      if (mapping.hasOwnProperty(str.charAt(i)))
+        ret.push(mapping[c]);
+      else
+        ret.push(c);
+    }
+    return ret.join('');
   }
   getHeaderArray(csvRecordsArr: any) {
     let headers = (<string>csvRecordsArr[0]).split(',');

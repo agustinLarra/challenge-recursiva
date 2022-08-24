@@ -11,21 +11,27 @@
     background-color: #01579B
   }
   
-  .secondary-button {
-    position: relative;
-    background-color: #bdbdbd;
-    margin-left: 10%;
-
+  .send-button {
+   background-color: #42a5f5;
+   padding-left: 50px;
+   padding-right: 50px;
   }
-  .secondary-button:hover {
-    background-color: #8d8d8d
+  .send-button:hover {
+    background-color: #01579B
+  }
+
+  .card-actions {
+    margin-right: 27%;  
   }
 
 
 
  
-.file {
+.labelFile {
   cursor: pointer;
+  margin-top: 1%;
+  font-size: 22px;
+  position: relative;
 }
 
 #material-symbols-outlined{
