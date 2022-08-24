@@ -9,6 +9,7 @@ import { SideNavService } from "src/app/services/side-nav.service";
 
 export class HomeComponent implements OnInit {
 
+
 	constructor() {	}
 
 	ngOnInit(): void {}

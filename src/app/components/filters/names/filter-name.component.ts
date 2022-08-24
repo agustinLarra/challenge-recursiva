@@ -41,7 +41,8 @@ export class FilterNameComponent implements OnInit {
     
     ngOnChanges(changes: SimpleChanges): void {
         this.ngOnInit()
-      }
+    }
+    
     getAllFans() {
         this.store.select(FansState.getAllFans).subscribe(data => {
             this.fansArray = data

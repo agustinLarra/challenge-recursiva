@@ -37,6 +37,7 @@ export class CSVReaderComponent implements OnInit {
       this.sideNavService.toggle();
     })
 
+
   }
 
 

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AgeDataTable } from '../ngxs/model/agesTable.model';
 import { Fan } from '../ngxs/model/fans.model';
 import { NameCount } from '../ngxs/model/nameCount.model';
 
@@ -74,16 +75,62 @@ export class FilterService {
 
     public getAgeAverageByClub (fansArray: Fan[], club: string){
         var fansByClub = this.getFansByClub(fansArray, club)
+        return this.getAgeAverage(fansByClub)
+    }
+
+    public getAgeAverage(fansArray: Fan[]){
         var sumTotalAges = 0
-        const numberOfFans = fansByClub.length
-        fansByClub.forEach(element => {
+        const numberOfFans = fansArray.length
+        fansArray.forEach(element => {
             sumTotalAges += element.age
         });
-        console.log('cantidad de fans',numberOfFans)
-        console.log('edades totales',sumTotalAges)
-        var average = sumTotalAges / numberOfFans
-        console.log('average',average)
+        var average = (sumTotalAges / numberOfFans).toFixed(2)
         return average
+    }
+
+    public getMaxAge(fansArray: Fan[]){
+        var max = fansArray[0].age
+        for (let index = 1; index < fansArray.length; index++) {
+            const element = fansArray[index];
+            if(element.age > max){
+                max = element.age
+            }
+        }
+        return max
+    }
+    public getMinAge(fansArray: Fan[]){
+        var min = fansArray[0].age
+        for (let index = 1; index < fansArray.length; index++) {
+            const element = fansArray[index];
+            if(element.age < min){
+                min = element.age
+            }
+        }
+        return min
+    }
+
+
+    public getAgesTable(fansArray: Fan[]){
+        const clubs = ['Boca','River','Racing','San Lorenzo','Independiente','Velez','Estudiantes','Gimnasia LP','Rosario Central','Newells']
+        var agesTable : AgeDataTable[] = []
+        for (let index = 0; index < clubs.length; index++) {
+            const club = clubs[index];
+            const fansByClub = this.getFansByClub(fansArray, club)
+            const average = this.getAgeAverage(fansByClub)
+            const minAge = this.getMinAge(fansByClub)
+            const maxAge = this.getMaxAge(fansByClub)
+            var data : AgeDataTable = {
+                club: club,
+                numberOfFans : fansByClub.length,
+                minAge: minAge,
+                maxAge: maxAge,
+                ageAverage: average
+            }
+            agesTable.push(data)
+        }
+        agesTable.sort((a, b) => b.numberOfFans - a.numberOfFans);
+
+        return agesTable
     }
 
 }

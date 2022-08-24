@@ -20,7 +20,7 @@ export class FiltersConteinerComponent implements OnInit {
   fansArray :Fan [] = []
   numberOfFans = 0;
   
-  clubs = [{value: 'Boca'},{value: 'River'},{value: 'Racing'},{value: 'San Lorenzo'},{value: 'Independiente'},{value: 'Velez'},{value: 'Estudiantes'},{value: 'Gimnasia LP'},{value: 'Huracán'},{value: 'Rosario Central'},{value: 'Newells'},]
+  clubs = [{value: 'Boca'},{value: 'River'},{value: 'Racing'},{value: 'San Lorenzo'},{value: 'Independiente'},{value: 'Velez'},{value: 'Estudiantes'},{value: 'Gimnasia LP'},{value: 'Rosario Central'},{value: 'Newells'},]
   selectedClub = this.clubs[0].value
 
  filterNameComponent = false
@@ -38,6 +38,7 @@ export class FiltersConteinerComponent implements OnInit {
     this.sidenavService.setSidenav(this.sidenav);
     this.getAllFans()
     this.countFans()
+    
   }
 
   getAllFans(){
