@@ -110,8 +110,7 @@ export class FilterService {
     }
 
 
-    public getAgesTable(fansArray: Fan[]){
-        const clubs = ['Boca','River','Racing','San Lorenzo','Independiente','Velez','Estudiantes','Gimnasia LP','Rosario Central','Newells']
+    public getAgesTable(fansArray: Fan[], clubs : string []){
         var agesTable : AgeDataTable[] = []
         for (let index = 0; index < clubs.length; index++) {
             const club = clubs[index];

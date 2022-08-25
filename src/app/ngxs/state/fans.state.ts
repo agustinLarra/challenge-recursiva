@@ -26,8 +26,6 @@ export class FansState {
         return state.fansArray
     }
 
-
-
     @Selector()
     static getClubNames(state: FansStateModel) {
         return state.clubNamesArray
@@ -35,7 +33,6 @@ export class FansState {
 
     @Selector()
     static countFans(state: FansStateModel) {
-        console.log('state.fansArray.length',state.fansArray.length)
         return state.fansArray.length
     }
 

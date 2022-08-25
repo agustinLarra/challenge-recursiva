@@ -35,15 +35,9 @@ export class FiltersConteinerComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log('en ngOnInit')
-
     this.sidenavService.setSidenav(this.sidenav);
     this.getClubs()
     this.getAllFans()
-    
-    
-    console.log('en countFans')
-
     this.countFans()
   }
 
@@ -56,16 +50,12 @@ export class FiltersConteinerComponent implements OnInit {
   }
   
   countFans() {
-    console.log('en countFans')
-
     this.store.select(FansState.countFans).subscribe(data => {
-      console.log(' countFans',data)
-
       this.numberOfFans = data
     });
   }
+  
   getClubs() {
-    
     this.store.select(FansState.getClubNames).subscribe(clubNames => {
       for (let index = 0; index < clubNames.length; index++) {
         const element = clubNames[index];

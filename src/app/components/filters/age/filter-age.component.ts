@@ -7,10 +7,10 @@ import { Fan } from "src/app/ngxs/model/fans.model";
 import { FansState } from "src/app/ngxs/state/fans.state";
 import { FilterService } from "src/app/services/filter.service";
 
-export class TableData  {
-    name : string ;
-    age : number;
-    club : string;
+export class TableData {
+    name: string;
+    age: number;
+    club: string;
 }
 
 @Component({
@@ -25,11 +25,10 @@ export class FilterAgeComponent implements OnInit {
     @Input() selectedClub: string;
     fansArray: Fan[] = []
     fansFiltereds: Fan[] = []
-    ageAverage : string
+    ageAverage: string
     //table
     displayedColumns: string[] = ['club', 'numberOfFans', 'minAge', 'maxAge', 'ageAverage'];
     dataSource: AgeDataTable[] = [];
-    isLoading :boolean = true
 
     constructor(
         private store: Store,
@@ -41,10 +40,10 @@ export class FilterAgeComponent implements OnInit {
         this.getAgeAverageByClub()
         this.setTableData()
     }
-    
+
     ngOnChanges(changes: SimpleChanges): void {
         this.ngOnInit()
-      }
+    }
 
     getAllFans() {
         this.store.select(FansState.getAllFans).subscribe(data => {
@@ -53,12 +52,16 @@ export class FilterAgeComponent implements OnInit {
     }
 
     getAgeAverageByClub() {
-        this.ageAverage = this.filterService.getAgeAverageByClub(this.fansArray,this.selectedClub)  
+        this.ageAverage = this.filterService.getAgeAverageByClub(this.fansArray, this.selectedClub)
     }
 
+
     setTableData() {
-        this.dataSource = this.filterService.getAgesTable(this.fansArray);
-        this.isLoading = false 
+        var clubs: string[] = []
+        this.store.select(FansState.getClubNames).subscribe(clubNames => {
+            clubs = clubNames
+        })
+        this.dataSource = this.filterService.getAgesTable(this.fansArray, clubs);
     }
 
 }
