@@ -1,4 +1,6 @@
 import { Component, Input, OnInit, SimpleChanges, ViewChild } from "@angular/core";
+import { FormControl, Validators } from "@angular/forms";
+import { MatSidenav } from "@angular/material/sidenav";
 import { Store } from "@ngxs/store";
 import { AgeDataTable } from "src/app/ngxs/model/agesTable.model";
 import { Fan } from "src/app/ngxs/model/fans.model";

@@ -16,55 +16,78 @@ import { SideNavService } from "src/app/services/side-nav.service";
 export class FiltersConteinerComponent implements OnInit {
 
   @ViewChild('rightSidenav', { static: true }) sidenav: MatSidenav;
-  
-  fansArray :Fan [] = []
+
+  fansArray: Fan[] = []
   numberOfFans = 0;
-  
-  clubs = [{value: 'Boca'},{value: 'River'},{value: 'Racing'},{value: 'San Lorenzo'},{value: 'Independiente'},{value: 'Velez'},{value: 'Estudiantes'},{value: 'Gimnasia LP'},{value: 'Rosario Central'},{value: 'Newells'},]
-  selectedClub = this.clubs[0].value
 
- filterNameComponent = false
- filterAgeComponent = false
- filterByMaritalStatusAndStudys = false
 
-  
+  clubs : {value : string} [] = []
+  selectedClub = ''
+  filterNameComponent = false
+  filterAgeComponent = false
+  filterByMaritalStatusAndStudys = false
+
+
   constructor(
     private sidenavService: SideNavService,
     private store: Store,
-    private filterService : FilterService
-    ) { }
+    private filterService: FilterService
+  ) { }
 
   ngOnInit(): void {
+    console.log('en ngOnInit')
+
     this.sidenavService.setSidenav(this.sidenav);
+    this.getClubs()
     this.getAllFans()
-    this.countFans()
     
+    
+    console.log('en countFans')
+
+    this.countFans()
   }
 
-  getAllFans(){
+  getAllFans() {
     this.store.select(FansState.getAllFans).subscribe(data => {
       this.fansArray = data
+      this.numberOfFans = data.length
+
     });
   }
+  
   countFans() {
+    console.log('en countFans')
+
     this.store.select(FansState.countFans).subscribe(data => {
+      console.log(' countFans',data)
+
       this.numberOfFans = data
     });
   }
-
-  filterByNameButton(){
+  getClubs() {
+    
+    this.store.select(FansState.getClubNames).subscribe(clubNames => {
+      for (let index = 0; index < clubNames.length; index++) {
+        const element = clubNames[index];
+        var data = {value: element}
+        this.clubs.push(data)
+        this.selectedClub = this.clubs[0].value
+      }
+    })
+  }
+  filterByNameButton() {
     this.filterNameComponent = true
     this.filterAgeComponent = false
     this.filterByMaritalStatusAndStudys = false
-  } 
+  }
 
-  filterByMaritalStatusAndStudysButton(){
+  filterByMaritalStatusAndStudysButton() {
     this.filterNameComponent = false
     this.filterAgeComponent = false
     this.filterByMaritalStatusAndStudys = true
   }
 
-  filterByAgeButton(){
+  filterByAgeButton() {
     this.filterNameComponent = false
     this.filterAgeComponent = true
     this.filterByMaritalStatusAndStudys = false

@@ -1,0 +1,16 @@
+@import '~@angular/material/theming';
+$custom-typography: mat-typography-config(
+  $font-family: 'Albert Sans'
+);
+@include mat-core($custom-typography);
+
+$custom-typography: mat.define-typography-config($font-family:'"Albert Sans",sans-serif');
+
+$custom-theme: mat.define-light-theme((typography: $custom-typography));
+
+@include mat.core($custom-typography);
+@include mat.all-component-themes($custom-theme);
+
+.mat-typography{
+    $font-family: 'Albert Sans'
+}

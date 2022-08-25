@@ -1,7 +1,8 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from "@angular/core";
 import { Store } from "@ngxs/store";
-import { SetFans } from "src/app/ngxs/action/fans.action";
+import { SetClubNames, SetFans } from "src/app/ngxs/action/fans.action";
 import { Fan } from "src/app/ngxs/model/fans.model";
+import { FansState } from "src/app/ngxs/state/fans.state";
 import { SideNavService } from "src/app/services/side-nav.service";
 import * as XLSX from 'xlsx'
 
@@ -15,10 +16,10 @@ import * as XLSX from 'xlsx'
 export class CSVReaderComponent implements OnInit {
 
   fileName: string = ""
-  loading = false
   public records: Fan[] = [];
-
+  isFileAttached = false
   @ViewChild('csvReader') csvReader: any;
+  @Output() outputEmiter = new EventEmitter<string>();
 
   constructor(
     private sideNavService: SideNavService,
@@ -28,35 +29,32 @@ export class CSVReaderComponent implements OnInit {
 
 
   send() {
-    /*  if(this.records != []){
-       this.sideNavService.toggle();
-     }else{
-       alert("Primero ingresa un archivo")    
-     } */
-    this.store.dispatch(new SetFans(this.records)).subscribe(() => {
-      this.sideNavService.toggle();
-    })
-
-
+    if (this.isFileAttached) {
+      this.store.dispatch(new SetFans(this.records)).subscribe(() => {
+        this.store.dispatch(new SetClubNames(this.records)).subscribe(() => {
+          //this.outputEmiter.emit("true");
+          this.sideNavService.toggle();
+        })
+      })
+    } else {
+      alert("Primero ingresa un archivo")
+    }
   }
 
 
   uploadListener($event: any): void {
-    this.loading = true
     let files = $event.srcElement.files;
     this.fileName = files[0].name
     let input = $event.target;
     let reader = new FileReader();
-    reader.readAsText(input.files[0]);
+    reader.readAsText(input.files[0], 'ISO-8859-1');
     reader.onload = () => {
       let csvData = reader.result;
-      console.log('csvData',csvData)
       let csvRecordsArray = (<string>csvData).split(/\r\n|\n/);
-      console.log('csvData',csvData)
       let headersRow = this.getHeaderArray(csvRecordsArray);
       this.records = this.getDataRecordsArrayFromCSVFile(csvRecordsArray, headersRow.length);
+      this.isFileAttached = true
     };
-    this.loading = false
   }
 
   getDataRecordsArrayFromCSVFile(csvRecordsArray: any, headerLength: any) {
@@ -75,9 +73,7 @@ export class CSVReaderComponent implements OnInit {
           curruntRecord[0] = curruntRecord[0].slice(fin + 1, curruntRecord[0].length)
           dataArray.push(extraida)
         }
-   
 
-        //Convierto el dato en una clase
         let fan: Fan = {
           name: dataArray[0],
           age: parseInt(dataArray[1]),
@@ -91,29 +87,8 @@ export class CSVReaderComponent implements OnInit {
     }
     return fansArray;
   }
-  /*   removeAccents(str: string) {
-      return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-    } */
 
-  removeAccents(str: string) {
 
-    var from = "ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç",
-      to = "AAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc",
-      mapping: any = {};
-
-    for (var i = 0, j = from.length; i < j; i++)
-      mapping[from.charAt(i)] = to.charAt(i);
-
-    var ret = [];
-    for (var i = 0, j = str.length; i < j; i++) {
-      var c = str.charAt(i);
-      if (mapping.hasOwnProperty(str.charAt(i)))
-        ret.push(mapping[c]);
-      else
-        ret.push(c);
-    }
-    return ret.join('');
-  }
   getHeaderArray(csvRecordsArr: any) {
     let headers = (<string>csvRecordsArr[0]).split(',');
     let headerArray = [];

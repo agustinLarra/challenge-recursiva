@@ -1,9 +1,7 @@
 <mat-card class="card">
   <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
 
     <mat-card-title>
-    <!--   <input hidden (change)="readDocument($event)" #fileInput type="file" id="file"> -->
     <input hidden type="file" id="file" #csvReader name="Upload CSV" (change)="uploadListener($event)" accept=".csv" />    
  
     <button mat-mini-fab color="primary" class="primary-button" (click)="csvReader.click()">
@@ -13,12 +11,15 @@
         Subir archivo
       </label>
     </mat-card-title>
-    <mat-card-subtitle>{{fileName}}</mat-card-subtitle>
+
+   
+      <mat-card-subtitle class="divider" *ngIf="fileName!=''">Archivo subido: {{fileName}} </mat-card-subtitle>
+ 
 
   </mat-card-header>
   <img mat-card-image src="../../../assets/logo-liga-argentina.png">
 
   <mat-card-actions align="end" class="card-actions" >
-    <button mat-raised-button class="send-button" *ngIf="loading == false" (click)="send()">Enviar</button>
+    <button mat-raised-button class="send-button" (click)="send()">Enviar</button>
   </mat-card-actions>
 </mat-card>

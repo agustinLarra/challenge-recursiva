@@ -39,6 +39,7 @@ export class FilterNameComponent implements OnInit {
         this.setTableData()
     }
     
+    
     ngOnChanges(changes: SimpleChanges): void {
         this.ngOnInit()
     }

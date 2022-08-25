@@ -8,6 +8,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatSelectModule} from '@angular/material/select';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatTableModule} from '@angular/material/table';
+import {MatDividerModule} from '@angular/material/divider';
 
 @NgModule({
   declarations: [],
@@ -22,7 +23,8 @@ import {MatTableModule} from '@angular/material/table';
     MatSidenavModule,
     MatSelectModule,
     MatButtonToggleModule,
-    MatTableModule
+    MatTableModule,
+    MatDividerModule
   ]
 })
 export class MaterialModule { }
