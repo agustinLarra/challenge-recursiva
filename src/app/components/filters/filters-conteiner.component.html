@@ -8,21 +8,28 @@
                 <h3>Hinchas inscriptos</h3>
                 <mat-divider class="divider"></mat-divider>
 
-                <mat-form-field appearance="outline">
-                    <mat-label>Selecciona un equipo</mat-label>
-                    <mat-select [(value)]="selectedClub">
-                        <mat-option [value]="option.value" *ngFor="let option of clubs">{{ option.value }}</mat-option>
-                    </mat-select>
-                </mat-form-field>
 
                 <h4>Filtra los hinchas por:</h4>
 
                 <mat-button-toggle-group name="fontStyle">
-                    <mat-button-toggle  (click)="filterByNameButton()" value="bold">Nombre</mat-button-toggle>
-                    <mat-button-toggle  (click)="filterByAgeButton()" value="bold">Edad</mat-button-toggle>
-                    <mat-button-toggle  (click)="filterByMaritalStatusAndStudysButton()" value="bold">Estudios y estado civil
+                    <mat-button-toggle (click)="filterByNameButton()" value="bold">Nombre</mat-button-toggle>
+                    <mat-button-toggle (click)="filterByAgeButton()" value="bold">Edad</mat-button-toggle>
+                    <mat-button-toggle (click)="filterByMaritalStatusAndStudysButton()" value="bold">Estudios y estado
+                        civil
                     </mat-button-toggle>
                 </mat-button-toggle-group>
+                <div *ngIf="filterNameComponent == true ||filterAgeComponent == true ">
+                    <mat-divider class="divider"></mat-divider>
+
+                    <mat-form-field appearance="outline" >
+                        <mat-label>Selecciona un equipo</mat-label>
+                        <mat-select [(value)]="selectedClub">
+                            <mat-option [value]="option.value" *ngFor="let option of clubs">{{ option.value }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
             </div>
 
             <app-filter-name *ngIf="filterNameComponent == true" [selectedClub]="selectedClub"></app-filter-name>
