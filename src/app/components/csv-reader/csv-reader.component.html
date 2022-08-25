@@ -1,5 +1,5 @@
 <mat-card class="card">
-  <mat-card-header>
+  <mat-card-header style="margin-bottom: 5%;">
 
     <mat-card-title>
     <input hidden type="file" id="file" #csvReader name="Upload CSV" (change)="uploadListener($event)" accept=".csv" />    
@@ -13,7 +13,7 @@
     </mat-card-title>
 
    
-      <mat-card-subtitle class="divider" *ngIf="fileName!=''">Archivo subido: {{fileName}} </mat-card-subtitle>
+      <mat-card-subtitle  *ngIf="fileName!=''">Archivo subido: {{fileName}} </mat-card-subtitle>
  
 
   </mat-card-header>
